@@ -1,10 +1,10 @@
 #include "OBD2_Command.hpp"
 
-OBD2_Command::OBD2_Command(byte PID, bool enable){
+OBD2_Command::OBD2_Command(uint8_t PID, bool enable){
     init(PID,enable);
 }
 
-void OBD2_Command::init(byte PID, bool enable){
+void OBD2_Command::init(uint8_t PID, bool enable){
     for(int i = 0;i < OBD2_BYTE_NUM;i++){
         cmd[i] = 0;
     }
@@ -27,12 +27,12 @@ bool OBD2_Command::isEnable(){
 }
 
 
-byte OBD2_Command::getPID(){
+uint8_t OBD2_Command::getPID(){
     return cmd[OBD2_BYTE_PID];
 }
 
 
-bool OBD2_Command::setData(byte *data, byte num){
+bool OBD2_Command::setData(uint8_t *data, uint8_t num){
     if(num > OBD2_MAX_DATA_NUM) return false;
     vLength = num;
     for (int i = 0; i < num; i++)
@@ -41,7 +41,7 @@ bool OBD2_Command::setData(byte *data, byte num){
     }
 }
 
-byte OBD2_Command::getData(byte *data)
+uint8_t OBD2_Command::getData(uint8_t *data)
 {
     for (int i = 0; i < OBD2_MAX_DATA_NUM; i++)
     {
@@ -51,7 +51,7 @@ byte OBD2_Command::getData(byte *data)
     return vLength;
 }
 
-bool OBD2_Command::setBytes(byte *data)
+bool OBD2_Command::setBytes(uint8_t *data)
 {
     vLength = cmd[OBD2_BYTE_LEN] - OBD2_BYTE_NONDATA_NUM;
     for (int i = 0; i < OBD2_BYTE_NUM; i++)
@@ -64,7 +64,7 @@ bool OBD2_Command::setBytes(byte *data)
     return true;
 }
 
-byte OBD2_Command::getBytes(byte *data)
+uint8_t OBD2_Command::getBytes(uint8_t *data)
 {
 
     cmd[OBD2_BYTE_LEN] = vLength + OBD2_BYTE_NONDATA_NUM;
@@ -79,7 +79,7 @@ byte OBD2_Command::getBytes(byte *data)
     return vLength + OBD2_BYTE_NONDATA_NUM;
 }
 
-void OBD2_Command::makeResponse(byte mode, byte *retPackets)
+void OBD2_Command::makeResponse(uint8_t mode, uint8_t *retPackets)
 {
     cmd[OBD2_BYTE_LEN]  = vLength + OBD2_BYTE_NONDATA_NUM;
     cmd[OBD2_BYTE_MODE] = mode | OBD2_MODE_RESP_BIT;

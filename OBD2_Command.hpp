@@ -19,26 +19,26 @@
 
 class OBD2_Command{
 public:
-    OBD2_Command(byte PID = 0,bool enable = false);
-    void    init(byte PID  ,bool enable=false);
+    OBD2_Command(uint8_t PID = 0,bool enable = false);
+    void    init(uint8_t PID  ,bool enable=false);
     void    setEnable(bool enable=true);
     void    setDisable();
 
     bool    isEnable();
-    byte    getPID();
+    uint8_t getPID();
 
     //パケット内のデータのみを入力/出力
-    bool    setData(byte* data, byte num = 5);
-    byte    getData(byte* data); // 返り値：データ長さ
+    bool    setData(uint8_t* data, uint8_t num = 5);
+    uint8_t getData(uint8_t* data); // 返り値：データ長さ
 
-    //CANコマンド全て(8byte)を全て入力/出力
-    bool    setBytes(byte *data);
+    //CANコマンド全て(8uint8_t)を全て入力/出力
+    bool    setBytes(uint8_t *data);
     
     // 使わない？仮
-    byte getBytes(byte *data); // 返り値：データ長さ
+    uint8_t getBytes(uint8_t *data); // 返り値：データ長さ
 
     // 返信作成
-    void makeResponse(byte mode,byte *retPackets);
+    void makeResponse(uint8_t mode,uint8_t *retPackets);
 
     // Todo 実装予定
     // bool    setValue(float val);
@@ -46,16 +46,16 @@ public:
 
 /*
     bool isReadable();
-    void readCmd(uint32_t& addr, byte *packets, byte& length);
-    void sendCmd(uint32_t  addr, byte* packets, byte  length);
+    void readCmd(uint32_t& addr, uint8_t *packets, uint8_t& length);
+    void sendCmd(uint32_t  addr, uint8_t* packets, uint8_t  length);
 */
 
 private:
     // 値、ステータスを複数保存する可能性があるためcmdを直接編集しない
     bool cmdEnable;
-    byte value[OBD2_MAX_DATA_NUM];
-    byte vLength;
-    byte cmd[OBD2_BYTE_NUM];
+    uint8_t value[OBD2_MAX_DATA_NUM];
+    uint8_t vLength;
+    uint8_t cmd[OBD2_BYTE_NUM];
 };
 
 
