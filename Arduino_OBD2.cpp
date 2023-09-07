@@ -1,9 +1,9 @@
 #include "Arduino_OBD2.hpp"
 
 
-static MCP_CAN* OBD2::CANPtr        = NULL;
-static bool     OBD2::CANIsBegin    = false;
-static bool     OBD2::SerialIsBegin = false;
+MCP_CAN* OBD2::CANPtr        = NULL;
+bool     OBD2::CANIsBegin    = false;
+bool     OBD2::SerialIsBegin = false;
 
 OBD2::OBD2(MCP_CAN* MCP_CANptr, uint32_t rcvAddr, uint32_t sndAddr, bool listenerMode)
 {
